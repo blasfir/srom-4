@@ -97,8 +97,20 @@ def addMatrix():
             if 1 in (s1, s2, s3, s4):
                 matrix[i][j] = 1
     return matrix            
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+def onbMul(a, b):
+    a = numpy.array(a)
+    b = numpy.array(b)
+    lamb = numpy.array(addMatrix())
+    a_shift = numpy.zeros((m, m), dtype=int)
+    b_shift = numpy.zeros((m, m), dtype=int)
+    for i in range(m):
+        a_shift[i] = numpy.roll(a, -i)
+        b_shift[i] = numpy.roll(b, -i)
+    res = (a_shift @ lamb @ b_shift.T).diagonal() % 2
+    return res.tolist()
 
-def onbMul(A, B):
+'''def onbMul(A, B):
     matrix = numpy.array(addMatrix(), dtype=int)
     result = numpy.zeros(m, dtype=int)
     for i in range(m):
@@ -108,7 +120,7 @@ def onbMul(A, B):
         B2 = numpy.array(B1, dtype=int).reshape(-1, 1)
         result[i] = (A2 @ matrix @ A2) % 2
     result = result.tolist()
-    return result
+    return result'''
 
 def onbPower(a, n):
     res = [1] * m
@@ -138,17 +150,34 @@ h = '101010010110100100000000010011011111000011110011010000101000100000010110001
 ff = stringToArray(f)
 gg = stringToArray(g)
 hh = stringToArray(h)
+ggg = gg[::-1]
 #print(isThereAOnb())
 #print(onbAdd(ff, gg))
 #print(onbTrace(ff))
 #print(onbFindZero(ff))
 #print(onbSquarePower(ff))
 #print(addMatrix())
-print(onbMul(ff, gg))
+#print(onbMul(ff, gg))
 #print(onbPower(ff, gg))
 #print(onbInverseElement(ff))
 #print(onbFindOne(ff))
-
+print()
+print('onbFindZero: ' + arrayToString(onbFindZero(ff)))#ok
+print()
+print('onbFindOne: ' + arrayToString(onbFindOne(ff)))#ok
+print()
+print('onbAdd: ' + arrayToString(onbAdd(gg, ff)))#ok
+print()
+print('onbMul: ' + arrayToString(onbMul(gg, ff)))#ok
+print()
+print('onbTrace: ' + arrayToString(onbTrace(ff)))#ok?
+print()
+print('onbSquarePower: ' + arrayToString(onbSquarePower(ff)))#ok
+print()
+print('onbPower: ' + arrayToString(onbPower(ff, ggg)))
+print()
+print('onbInverseElement: ' + arrayToString(onbInverseElement(ff)))#ok
+'''
 sumGF = fixLength(onbAdd(gg, ff))
 sumGFmulH = fixLength(onbMul(sumGF, hh))
 mulHsumGF = fixLength(onbMul(hh, sumGF))
@@ -196,4 +225,4 @@ print(f"Середній час роботи onbInverseElement: {avg7:.10f} се
 avg8 = timeSearch(stringToArray, g)
 print(f"Середній час роботи stringToArray: {avg8:.10f} сек")
 avg9 = timeSearch(arrayToString, gg)
-print(f"Середній час роботи arrayToString: {avg9:.10f} сек")
+print(f"Середній час роботи arrayToString: {avg9:.10f} сек")'''
