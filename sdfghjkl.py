@@ -123,10 +123,11 @@ def onbMul(a, b):
     return result'''
 
 def onbPower(A, B):
-    result = [1] * m
+    #B = B[::-1]
+    res = [1] * m
     for i in B:
         if i == 1:
-            result = onbMul(result, A)
+            result = onbMul(res, A)
         A = onbSquarePower(A)
     return result
 
