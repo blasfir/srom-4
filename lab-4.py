@@ -123,6 +123,7 @@ def onbMul(a, b):
     return result'''
 
 def onbPower(A, B):
+    B = B[::-1]
     result = [1] * m
     for i in B:
         if i == 1:
@@ -133,7 +134,6 @@ def onbPower(A, B):
 def onbInverseElement(A):
     k = bin(2**m - 2)[2:]
     k = stringToArray(k)
-    k = k[::-1]
     result = onbPower(A, k)
     return result
 
@@ -150,7 +150,6 @@ h = '101010010110100100000000010011011111000011110011010000101000100000010110001
 ff = stringToArray(f)
 gg = stringToArray(g)
 hh = stringToArray(h)
-ggg = gg[::-1]
 #print(isThereAOnb())
 #print(onbAdd(ff, gg))
 #print(onbTrace(ff))
@@ -162,21 +161,21 @@ ggg = gg[::-1]
 #print(onbInverseElement(ff))
 #print(onbFindOne(ff))
 print()
-print('onbFindZero: ' + arrayToString(onbFindZero(ff)))#ok
+print('onbFindZero: ' + arrayToString(onbFindZero(ff)))
 print()
-print('onbFindOne: ' + arrayToString(onbFindOne(ff)))#ok
+print('onbFindOne: ' + arrayToString(onbFindOne(ff)))
 print()
-print('onbAdd: ' + arrayToString(onbAdd(gg, ff)))#ok
+print('onbAdd: ' + arrayToString(onbAdd(gg, ff)))
 print()
-print('onbMul: ' + arrayToString(onbMul(gg, ff)))#ok
+print('onbMul: ' + arrayToString(onbMul(gg, ff)))
 print()
-print('onbTrace: ' + arrayToString(onbTrace(ff)))#ok?
+print('onbTrace: ' + arrayToString(onbTrace(ff)))
 print()
-print('onbSquarePower: ' + arrayToString(onbSquarePower(ff)))#ok
+print('onbSquarePower: ' + arrayToString(onbSquarePower(ff)))
 print()
-print('onbPower: ' + arrayToString(onbPower(ff, ggg)))
+print('onbPower: ' + arrayToString(onbPower(ff, gg)))
 print()
-print('onbInverseElement: ' + arrayToString(onbInverseElement(ff)))#ok
+print('onbInverseElement: ' + arrayToString(onbInverseElement(ff)))
 '''
 sumGF = fixLength(onbAdd(gg, ff))
 sumGFmulH = fixLength(onbMul(sumGF, hh))
