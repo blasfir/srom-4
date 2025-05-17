@@ -97,30 +97,21 @@ def addMatrix():
             if 1 in (s1, s2, s3, s4):
                 matrix[i][j] = 1
     return matrix            
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-def onbMul(a, b):
-    a = numpy.array(a)
-    b = numpy.array(b)
-    lamb = numpy.array(addMatrix())
-    a_shift = numpy.zeros((m, m), dtype=int)
-    b_shift = numpy.zeros((m, m), dtype=int)
-    for i in range(m):
-        a_shift[i] = numpy.roll(a, -i)
-        b_shift[i] = numpy.roll(b, -i)
-    res = (a_shift @ lamb @ b_shift.T).diagonal() % 2
-    return res.tolist()
 
-'''def onbMul(A, B):
-    matrix = numpy.array(addMatrix(), dtype=int)
-    result = numpy.zeros(m, dtype=int)
+def onbMul(A, B):
+    A = numpy.array(A)
+    B = numpy.array(B)
+    matrix = numpy.array(addMatrix())
+    A1 = numpy.zeros((m, m), dtype=int)
+    B1 = numpy.zeros((m, m), dtype=int)
     for i in range(m):
-        A1 = A[i:] + A[:i]
-        B1 = B[i:] + B[:i]
-        A2 = numpy.array(A1, dtype=int)
-        B2 = numpy.array(B1, dtype=int).reshape(-1, 1)
-        result[i] = (A2 @ matrix @ A2) % 2
+        A1[i] = numpy.roll(A, -i)
+        B1[i] = numpy.roll(B, -i)
+    TB1 = B1.T  
+    A1MTB1 =  A1 @ matrix @ TB1 
+    result = A1MTB1.diagonal() % 2
     result = result.tolist()
-    return result'''
+    return result
 
 def onbPower(A, B):
     B = B[::-1]
@@ -188,7 +179,7 @@ if sumMulGHmulFH == mulHsumGF == sumGFmulH:
 else:
     print('Error')
 
-power = stringToArray(bin(2**m - 1)[2:])[::-1]
+power = stringToArray(bin(2**m - 1)[2:])
 fToPower = onbPower(ff, power)
 while len(fToPower) > 1:
         fToPower.pop(0)
